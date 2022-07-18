@@ -88,10 +88,17 @@ section {
     transition: ease 0.3s all;
 }
 
+/*Highlight active navbar item with the corresponding active section*/
 .nav-active-class {
     background: rgb(160, 160, 160);
     color: #fff;
     transition: ease 0.3s all;
+}
+
+/*Added to hide navbar while not scrolling*/
+.nav-hidden {
+    transform: translateY(-50px);
+    transition: transform 0.5s;
 }
 
 /* Header Styles */
@@ -101,6 +108,7 @@ section {
     top: 0;
     width: 100%;
     z-index: 5;
+    transition: transform 0.5s;  /*Added to show navbar when scrolling*/
 }
 
 /* Footer Styles */
@@ -223,4 +231,28 @@ section.your-active-class .landing__container::after {
     to {
         transform: rotate(360deg) translate(-1em) rotate(-360deg);
     }
+}
+
+
+/* Scroll to top button style */
+.up {
+    position: fixed;
+    bottom: 30px;
+    right: -50px;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;   
+    transition: 0.2s;
+}
+.up.show {
+    right: 30px;
 }

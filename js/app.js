@@ -39,7 +39,7 @@ function creatMenuLink(section, sectionName, sectionID) {
     a.href = `#${sectionID}`;
     a.innerText = sectionName;
     // Scroll to section on link click
-    a.addEventListener('click', function (evt) {
+    a.addEventListener('click', (evt) => {
         evt.preventDefault();
         section.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
@@ -73,7 +73,7 @@ function toggleActiveState() {
         });
     },
         {
-            threshold: 0.5,
+            threshold: 0.6,
         });
 
     sections.forEach(section => {
@@ -91,3 +91,34 @@ buildNavbar();
 
 // Set sections as active
 window.addEventListener('scroll', toggleActiveState);
+
+
+/**
+ * Additional Features
+ */
+
+// Hide fixed navigation bar while not scrolling
+let navHeader = document.getElementsByClassName('page__header')[0];
+
+window.addEventListener('scroll', () => {
+    navHeader.classList.remove('nav-hidden');
+    let lastScrollY = window.scrollY;
+    setTimeout(() => {
+        if (lastScrollY === window.scrollY && lastScrollY !== 0) {
+            navHeader.classList.add('nav-hidden');
+        }
+    }, 3000);
+});
+
+// scroll to top button
+let up = document.getElementsByClassName('up')[0];
+let pageTitle = document.getElementsByClassName('main__hero')[0];
+
+up.addEventListener('click', () => {
+    pageTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+})
+
+window.addEventListener('scroll', () => {
+    up.classList.toggle('show', this.scrollY >= 1000);
+});
+

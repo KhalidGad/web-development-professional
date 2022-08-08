@@ -53,7 +53,10 @@ function addData(req, res) {
         userResponse: req.body.content,
     }
     projectData.push(data);
-    console.log(`req.body: ${req.body}`);
+
+    console.log(req.body);
     console.log("..............");
-    console.log(`projectData: ${projectData}`);
+    console.log(data);
+    console.log("..............");
+    console.log(projectData);
 }

@@ -1,6 +1,6 @@
 /* Global Variables */
 // Personal API Key for OpenWeatherMap API
-let baseURL = 'http://api.openweathermap.org/data/2.5/forecast?id=';
+let baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 let apiKey = '&appid=8443ef44b9212199318e4b9182b6f917';
 
 // Create a new date instance dynamically with JS
@@ -20,7 +20,14 @@ document.getElementById('generate').addEventListener('click', (e) => {
     console.log("feeling : ", feeling);
 
     // Call our GET request to get data from API
-    getWeatherData(baseURL, zipCode, apiKey);
+    getWeatherData(baseURL, zipCode, apiKey).then(
+        (data) => {
+            // Call post function to save data
+            console.log(data);
+            console.log("......................");
+            postData('/add-data', { temp: data.main.temp, date: newDate, content: feeling })
+        }
+    )
 })
 
 /* Function to GET Web API Data*/
@@ -28,7 +35,26 @@ const getWeatherData = async (baseURL, zipCode, apiKey) => {
     const result = await fetch(baseURL + zipCode + apiKey);
     try {
         const data = await result.json();
-        console.log(data);
+        return data;
+    }
+    catch (error) {
+        console.log(`error: ${error}`);
+    }
+}
+
+/* Function to POST data */
+const postData = async (url = '', data = {}) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    });
+    try {
+        const newData = await response.json();
+        return newData;
     }
     catch (error) {
         console.log(`error: ${error}`);

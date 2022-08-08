@@ -1,11 +1,11 @@
 /* Global Variables */
 // Personal API Key for OpenWeatherMap API
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = '&appid=8443ef44b9212199318e4b9182b6f917&units=imperial';
+const apiKey = '';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
 
 // Event listener to add function to existing HTML DOM element
 document.getElementById('generate').addEventListener('click', (e) => {
@@ -32,7 +32,7 @@ document.getElementById('generate').addEventListener('click', (e) => {
             postData('/add-data', dataNeeded);
 
             // Update UI to present the last data that user entered
-            updateUI(dataNeeded);
+            updateUI();
         }
     )
 });
@@ -69,14 +69,14 @@ const postData = async (url = '', data = {}) => {
 }
 
 /* Function to GET Project Data */
-const updateUI = async (data) => {
-    // const request = await fetch('/all');
+const updateUI = async () => {
+    const request = await fetch('/all');
     try {
-        // const allData = await request.json();
-        // const last = allData.slice(-1)[0];
-        document.getElementById('date').innerText = `Date: ${data.date}`;
-        document.getElementById('temp').innerText = `temperature: ${data.temp}`;
-        document.getElementById('content').innerText = `Today's feeling: ${data.content}`;
+        const allData = await request.json();
+        const last = allData.slice(-1)[0];
+        document.getElementById('date').innerText = `Date: ${last.date}`;
+        document.getElementById('temp').innerText = `temperature: ${last.temperature}`;
+        document.getElementById('content').innerText = `Today's feeling: ${last.userResponse}`;
     }
     catch (error) {
         console.log("error: ", error);

@@ -7,7 +7,7 @@ const express = require('express');
 // Start up an instance of app
 const app = express();
 
-// Dependencies
+/* Dependencies */
 const bodyParser = require('body-parser');
 
 /* Middleware*/
@@ -33,14 +33,17 @@ function listening() {
     console.log(`server is running on port: ${port}`);
 }
 
+// Initialize all route with a callback function
 app.get('/all', getData);
 
+// Callback function to complete GET '/all'
 function getData(req, res) {
     //console.log(req);
     console.log('GET is working');
     res.send(projectData);
 }
 
+// Post Route
 app.post('/add-data', addData);
 
 function addData(req, res) {

@@ -28,12 +28,13 @@ const port = 8000;
 
 const server = app.listen(port, listening);
 
-// Callback function to debug
+// Callback function for debugging
 function listening() {
     console.log(`server is running on port: ${port}`);
 }
 
-// Initialize all route with a callback function
+/* Initialize all route with a callback function */
+// GET Route
 app.get('/all', getData);
 
 // Callback function to complete GET '/all'
@@ -43,7 +44,7 @@ function getData(req, res) {
     res.send(projectData);
 }
 
-// Post Route
+// POST Route
 app.post('/add-data', addData);
 
 function addData(req, res) {
@@ -54,6 +55,7 @@ function addData(req, res) {
     }
     projectData.push(data);
 
+    // Debug incoming data
     console.log(req.body);
     console.log("..............");
     console.log(data);
